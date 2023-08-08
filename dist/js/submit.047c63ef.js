@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkai_directory"]=self["webpackChunkai_directory"]||[]).push([[933],{5827:function(t,r,e){e.r(r),e.d(r,{default:function(){return d}});var i=e(3396);const n={class:"submit-tool"},s=(0,i._)("h1",null,"This is the submit tool page",-1),u=[s];function c(t,r){return(0,i.wg)(),(0,i.iD)("div",n,u)}var o=e(89);const a={},l=(0,o.Z)(a,[["render",c]]);var d=l}}]);
+//# sourceMappingURL=submit.047c63ef.js.map

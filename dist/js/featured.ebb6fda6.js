@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkai_directory"]=self["webpackChunkai_directory"]||[]).push([[248],{2490:function(e,r,t){t.r(r),t.d(r,{default:function(){return o}});var n=t(3396);const u={class:"featured"},a=(0,n._)("h1",null,"This is the featured page",-1),i=[a];function c(e,r){return(0,n.wg)(),(0,n.iD)("div",u,i)}var s=t(89);const d={},f=(0,s.Z)(d,[["render",c]]);var o=f}}]);
+//# sourceMappingURL=featured.ebb6fda6.js.map

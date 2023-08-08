@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkai_directory"]=self["webpackChunkai_directory"]||[]).push([[577],{6572:function(n,i,r){r.r(i),r.d(i,{default:function(){return f}});var e=r(3396);const s={class:"sign-in"},t=(0,e._)("h1",null,"This is the sing in page",-1),c=[t];function u(n,i){return(0,e.wg)(),(0,e.iD)("div",s,c)}var a=r(89);const o={},d=(0,a.Z)(o,[["render",u]]);var f=d}}]);
+//# sourceMappingURL=signin.e1d8d72d.js.map
