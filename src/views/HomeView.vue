@@ -202,9 +202,12 @@
             </div>
           </div>
 
-          <related-tools-on-search :filteredCards="filteredCards" :cards="cards" :categories="categories"
-            v-if="searchKeyword">
-          </related-tools-on-search>
+          <div v-if="filteredCards.length !== 0 && searchKeyword !== ''">
+            <related-tools-on-search :filteredCards="filteredCards" :cards="cards" :categories="categories"
+              v-if="searchKeyword">
+            </related-tools-on-search>
+          </div>
+            
 
           <div v-if="filteredCards.length === 0 && searchKeyword">
             <div class="container">
