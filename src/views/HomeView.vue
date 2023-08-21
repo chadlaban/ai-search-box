@@ -192,13 +192,13 @@
                   @click="toggleCategorySelection(category.id)"
                 ></span> -->
               </div>
-              <div class="card-body" id="card-body" @click.prevent="handleCardClick(card.tool_id)"
-                style="cursor: pointer;">
-                <div class="card-image-wrapper">
-                  <img class="img-fluid tool-image" :src="getImageUrl(card.screenshot_file_path)" :alt="card.tool_name" />
+                <div class="card-body" id="card-body" @click.prevent="handleCardClick(card.tool_id)" 
+                  style="cursor: pointer;">
+                  <div class="card-image-wrapper">
+                    <img class="img-fluid tool-image" :src="getImageUrl(card.screenshot_file_path)" :alt="card.tool_name" />
+                  </div>
+                  <card-on-hover :description="card.tool_description"></card-on-hover>
                 </div>
-                <card-on-hover :description="card.tool_description"></card-on-hover>
-              </div>
             </div>
           </div>
 

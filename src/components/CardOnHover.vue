@@ -94,7 +94,7 @@ export default {
     /* Remove the fixed height */
 
     /* Add the following properties */
-    padding: 3rem 1rem 5rem 1rem;
+    padding: 1rem 1rem 7rem 1rem;
     /* Add some padding for spacing */
     max-height: 80vh;
     /* Set a maximum height for the container */

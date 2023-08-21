@@ -9,7 +9,9 @@
             <div class="card-header" id="card-header" @click.prevent="handleCardClick(card.tool_id)"
               style="cursor: pointer;">
               <div class="card-title-container">
-                <div style="display: flex;">
+                <div style="display: flex;
+                  flex-direction: column;"
+                >
                   <div class="tool-pricing-icon">
                     <i class="fa-solid fa-dollar-sign fa-xl pricing-icon" style="color: #ffffff;"></i>
                   </div>
@@ -40,7 +42,7 @@
             <div class="card-header" id="card-header" @click.prevent="handleCardClick(card.tool_id)"
               style="cursor: pointer;">
               <div class="card-title-container">
-                <div style="display: flex;">
+                <div class="tool-pricing-body">
                   <div class="tool-pricing-icon">
                     <i class="fa-solid fa-dollar-sign fa-xl pricing-icon" style="color: #ffffff;"></i>
                   </div>
