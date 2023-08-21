@@ -503,6 +503,44 @@ export default {
   }
 }
 
+/* Padding adjustment for tools and filter section (Bug: Overlapping elements/components) */
+@media (max-width: 768px) {
+  #filter-and-tools-section {
+    padding: 38rem 2rem 2rem 2rem;
+    background: rgb(200, 210, 209);
+    background: linear-gradient(0deg, rgba(200, 210, 209, 1) 0%, rgba(200, 210, 209, 1) 5%, rgba(200, 210, 209, 0) 20%);
+
+    #card-header {
+      margin-left: 2rem;
+      padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+      margin-bottom: 0;
+      color: var(--bs-card-cap-color);
+      background-color: #FFF;
+      border-bottom: none;
+      border-radius: 10px 10px 0px 0px;
+    }
+
+    #category-headers {
+      display: flex;
+      justify-content: space-between;
+      color: var(--bs-card-cap-color);
+      background-color: #FFF;
+      border-bottom: none;
+      border-radius: 10px;
+    }
+
+    .card-filters {
+      .form-group {
+        display: flex;
+
+        .form-text {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
+
 #featured-trending-section {
   padding: 0rem 2rem 5.5rem 2rem;
   height: 100%;
