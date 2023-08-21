@@ -515,7 +515,7 @@ export default {
 /* Padding adjustment for tools and filter section (Bug: Overlapping elements/components) */
 @media (max-width: 768px) {
   #filter-and-tools-section {
-    padding: 38rem 2rem 2rem 2rem;
+    padding: 40rem 2rem 2rem 2rem;
     background: rgb(200, 210, 209);
     background: linear-gradient(0deg, rgba(200, 210, 209, 1) 0%, rgba(200, 210, 209, 1) 5%, rgba(200, 210, 209, 0) 20%);
 
