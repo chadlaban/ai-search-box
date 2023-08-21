@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <hr style="margin: auto 10rem; opacity: .1;" />
+  <hr class="body-divider" style="margin: auto 10rem; opacity: .1;" />
 
   <!-- AI Tools filter and cards -->
   <div class="container-fluid mt-4" id="filter-and-tools-section">
@@ -503,6 +503,15 @@ export default {
   }
 }
 
+#featured-trending-section {
+  padding: 0rem 2rem 5.5rem 2rem;
+  height: 100%;
+
+  .row {
+    max-height: 68vh;
+  }
+}
+
 /* Padding adjustment for tools and filter section (Bug: Overlapping elements/components) */
 @media (max-width: 768px) {
   #filter-and-tools-section {
@@ -539,14 +548,22 @@ export default {
       }
     }
   }
-}
 
-#featured-trending-section {
-  padding: 0rem 2rem 5.5rem 2rem;
-  height: 100%;
+  #featured-trending-section {
+    padding: 0rem 2rem 5.5rem 2rem;
+    height: 100%;
 
-  .row {
-    max-height: 68vh;
+    .row {
+      max-height: 68vh;
+    
+      > h5 {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  .body-divider {
+    display: none;
   }
 }
 

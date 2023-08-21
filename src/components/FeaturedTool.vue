@@ -133,7 +133,6 @@ export default {
             width: 100%;
             height: 58.1vh;
             object-fit: cover;
-            /* Ensure the image covers the entire wrapper */
         }
     }
 }
