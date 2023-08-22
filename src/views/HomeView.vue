@@ -5,7 +5,7 @@
     <section>
       <div class="row">
         <div class="col-lg-8 offset-lg-2 section-contents">
-          <h1 class="mb-3">AI Toolbox</h1>
+          <h1 class="mb-3">AI SearchBox</h1>
           <p class="lead">Get ready to unlock new possibilities with the largest AI tools directory.</p>
 
           <!-- Search Bar -->
