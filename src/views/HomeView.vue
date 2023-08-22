@@ -133,8 +133,12 @@
           <!-- Card header with toggle button -->
           <div class="card-header" id="category-headers" @click="toggleCardCategory">
             <h5 class="mb-0">Categories</h5>
-            <div>
-              <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedCategory, 'fa-regular fa-circle-down fa-lg': !isExpandedCategory }"
+            <div v-if="isExpandedCategory" key="up">
+              <i class="fa-regular fa-circle-up fa-lg"
+                style="color: #C8D2D1;"></i>
+            </div>
+            <div v-else key="down">
+              <i class="fa-regular fa-circle-down fa-lg"
                 style="color: #C8D2D1;"></i>
             </div>
           </div>
