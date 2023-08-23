@@ -9,6 +9,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+          <li class="nav-item nav-item-hover" :class="{ 'active': $route.path === '/about' }">
+            <router-link class="nav-link" to="/about">About Us</router-link>
+          </li>
           <li class="nav-item nav-item-hover" :class="{ 'active': $route.path === '/featured' }">
             <router-link class="nav-link" to="/featured">Featured</router-link>
           </li>
