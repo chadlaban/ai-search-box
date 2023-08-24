@@ -1,243 +1,245 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <!-- Header Section -->
-  <div class="container-fluid" id="header-section">
-    <section>
-      <div class="row">
-        <div class="col-lg-8 offset-lg-2 section-contents">
-          <h1 class="mb-3">AI SearchBox</h1>
-          <p class="lead">Get ready to unlock new possibilities with the largest AI tools directory.</p>
-
-          <!-- Search Bar -->
-          <form class="search-input">
-            <div class="input-group mb-3 header-search-bar">
-              <input type="text" class="form-control" v-model="searchKeyword" placeholder="Search AI tool here"
-                @keyup.enter="filterData" />
-              <div class="input-group-append">
-                <button class="btn" type="button" @click="filterData">
-                  <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #C8D2D1;"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- Featured and Trending Tools section -->
-  <div class="container-fluid mt-4" id="featured-trending-section" v-if="hideElements">
-    <div class="row">
-      <!-- Left Column -->
-      <div class="col col-md-5">
-        <!-- Featured Card -->
-        <h5 class="mb-4">Featured Tool</h5>
-        <featured-tool :cards="cards"></featured-tool>
-      </div>
-
-      <!-- Right Column -->
-      <div class="col col-md-7">
+  <div class="body">
+    <!-- Header Section -->
+    <div class="container-fluid" id="header-section">
+      <section>
         <div class="row">
-          <!-- Left Column Cards -->
-          <h5 class="mb-4">Trending Tools</h5>
-          <trending-tools :cards="cards"></trending-tools>
+          <div class="col-lg-8 offset-lg-2 section-contents">
+            <h1 class="mb-3">AI SearchBox</h1>
+            <p class="lead">Get ready to unlock new possibilities with the largest AI tools directory.</p>
+
+            <!-- Search Bar -->
+            <form class="search-input">
+              <div class="input-group mb-3 header-search-bar">
+                <input type="text" class="form-control" v-model="searchKeyword" placeholder="Search AI tool here"
+                  @keyup.enter="filterData" />
+                <div class="input-group-append">
+                  <button class="btn" type="button" @click="filterData">
+                    <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #C8D2D1;"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Featured and Trending Tools section -->
+    <div class="container-fluid mt-4" id="featured-trending-section" v-if="hideElements">
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col col-md-5">
+          <!-- Featured Card -->
+          <h5 class="mb-4">Featured Tool</h5>
+          <featured-tool :cards="cards"></featured-tool>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col col-md-7">
+          <div class="row">
+            <!-- Left Column Cards -->
+            <h5 class="mb-4">Trending Tools</h5>
+            <trending-tools :cards="cards"></trending-tools>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr class="body-divider" style="margin: auto 10rem; opacity: .1;" />
+    <hr class="body-divider" style="margin: auto 10rem; opacity: .1;" />
 
-  <!-- AI Tools filter and cards -->
-  <div class="container-fluid mt-4" id="filter-and-tools-section">
-    <div class="row">
-      <!-- Left Column -->
-      <div class="col-md-2">
-        <!-- Expandable Checkbox Filters -->
-        <!-- Bootstrap card -->
-        <div class="card mb-4">
-          <!-- Card header with toggle button -->
-          <div class="card-header" id="category-headers" @click="toggleCardSortBy">
-            <h5 class="mb-0">Sort By</h5>
-            <div>
-              <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedSortBy, 'fa-regular fa-circle-down fa-lg': !isExpandedSortBy }"
-                style="color: #C8D2D1;"></i>
+    <!-- AI Tools filter and cards -->
+    <div class="container-fluid mt-4" id="filter-and-tools-section">
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-2">
+          <!-- Expandable Checkbox Filters -->
+          <!-- Bootstrap card -->
+          <div class="card mb-4">
+            <!-- Card header with toggle button -->
+            <div class="card-header" id="category-headers" @click="toggleCardSortBy">
+              <h5 class="mb-0">Sort By</h5>
+              <div>
+                <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedSortBy, 'fa-regular fa-circle-down fa-lg': !isExpandedSortBy }"
+                  style="color: #C8D2D1;"></i>
+              </div>
             </div>
-          </div>
 
-          <!-- Card body (content) with Vue conditional rendering -->
-          <div class="card-body" v-if="isExpandedSortBy">
-            <!-- Placeholder for checkbox filters -->
-            <div class="form-group">
-              <label class="checkbox">
-                <input type="checkbox" /> Newest to Oldest
-              </label>
-            </div>
-            <hr style="margin: 10px 1rem; opacity: .050;" />
-            <div class="form-group">
-              <label class="checkbox">
-                <input type="checkbox" /> Top Rated
-              </label>
-            </div>
-            <hr style="margin: 10px 1rem; opacity: .050;" />
-            <div class="form-group">
-              <label class="checkbox">
-                <input type="checkbox" /> Most Favourites
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bootstrap card -->
-        <div class="card mb-4">
-          <!-- Card header with toggle button -->
-          <div class="card-header" id="category-headers" @click="toggleCardPricing">
-            <h5 class="mb-0">Pricing</h5>
-            <div>
-              <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedPricing, 'fa-regular fa-circle-down fa-lg': !isExpandedPricing }"
-                style="color: #C8D2D1;"></i>
-            </div>
-          </div>
-
-          <!-- Card body (content) with Vue conditional rendering -->
-          <div class="card-body" v-if="isExpandedPricing">
-            <!-- Placeholder for checkbox filters -->
-            <div class="form-group">
-              <label class="checkbox">
-                <input type="checkbox" /> Free
-              </label>
-            </div>
-            <hr style="margin: 10px 1rem; opacity: .050;" />
-            <div class="form-group">
-              <label class="checkbox">
-                <input type="checkbox" /> Trial
-              </label>
-            </div>
-            <hr style="margin: 10px 1rem; opacity: .050;" />
-            <div class="form-group">
-              <label class="checkbox">
-                <input type="checkbox" /> Paid
-              </label>
-            </div>
-            <hr style="margin: 10px 1rem; opacity: .050;" />
-            <div class="form-group">
-              <label class="checkbox">
-                <input type="checkbox" /> Premium
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bootstrap card -->
-        <div class="card mb-4">
-          <!-- Card header with toggle button -->
-          <div class="card-header" id="category-headers" @click="toggleCardCategory">
-            <h5 class="mb-0">Categories</h5>
-            <div v-if="isExpandedCategory" key="up">
-              <i class="fa-regular fa-circle-up fa-lg"
-                style="color: #C8D2D1;"></i>
-            </div>
-            <div v-else key="down">
-              <i class="fa-regular fa-circle-down fa-lg"
-                style="color: #C8D2D1;"></i>
-            </div>
-          </div>
-
-          <!-- Card body (content) with Vue conditional rendering -->
-          <div class="card-body card-filters" v-if="isExpandedCategory">
-            <!-- Placeholder for checkbox filters -->
-            <div class="category-container" v-for="category in allCategories" :key="category">
+            <!-- Card body (content) with Vue conditional rendering -->
+            <div class="card-body" v-if="isExpandedSortBy">
+              <!-- Placeholder for checkbox filters -->
               <div class="form-group">
                 <label class="checkbox">
-                  <input class="form-check-input" type="checkbox" v-model="selectedCategories" :value="category"
-                    @change="filterData" />
-                  {{ getCategoryName(category) }}
+                  <input type="checkbox" /> Newest to Oldest
                 </label>
-                <div class="form-text">
-                  ({{ categoryCounts[category] }})
-                </div>
               </div>
-              <hr style="margin: 10px 0rem; opacity: .050;" />
+              <hr style="margin: 10px 1rem; opacity: .050;" />
+              <div class="form-group">
+                <label class="checkbox">
+                  <input type="checkbox" /> Top Rated
+                </label>
+              </div>
+              <hr style="margin: 10px 1rem; opacity: .050;" />
+              <div class="form-group">
+                <label class="checkbox">
+                  <input type="checkbox" /> Most Favourites
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bootstrap card -->
+          <div class="card mb-4">
+            <!-- Card header with toggle button -->
+            <div class="card-header" id="category-headers" @click="toggleCardPricing">
+              <h5 class="mb-0">Pricing</h5>
+              <div>
+                <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedPricing, 'fa-regular fa-circle-down fa-lg': !isExpandedPricing }"
+                  style="color: #C8D2D1;"></i>
+              </div>
+            </div>
+
+            <!-- Card body (content) with Vue conditional rendering -->
+            <div class="card-body" v-if="isExpandedPricing">
+              <!-- Placeholder for checkbox filters -->
+              <div class="form-group">
+                <label class="checkbox">
+                  <input type="checkbox" /> Free
+                </label>
+              </div>
+              <hr style="margin: 10px 1rem; opacity: .050;" />
+              <div class="form-group">
+                <label class="checkbox">
+                  <input type="checkbox" /> Trial
+                </label>
+              </div>
+              <hr style="margin: 10px 1rem; opacity: .050;" />
+              <div class="form-group">
+                <label class="checkbox">
+                  <input type="checkbox" /> Paid
+                </label>
+              </div>
+              <hr style="margin: 10px 1rem; opacity: .050;" />
+              <div class="form-group">
+                <label class="checkbox">
+                  <input type="checkbox" /> Premium
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bootstrap card -->
+          <div class="card mb-4">
+            <!-- Card header with toggle button -->
+            <div class="card-header" id="category-headers" @click="toggleCardCategory">
+              <h5 class="mb-0">Categories</h5>
+              <div v-if="isExpandedCategory" key="up">
+                <i class="fa-regular fa-circle-up fa-lg"
+                  style="color: #C8D2D1;"></i>
+              </div>
+              <div v-else key="down">
+                <i class="fa-regular fa-circle-down fa-lg"
+                  style="color: #C8D2D1;"></i>
+              </div>
+            </div>
+
+            <!-- Card body (content) with Vue conditional rendering -->
+            <div class="card-body card-filters" v-if="isExpandedCategory">
+              <!-- Placeholder for checkbox filters -->
+              <div class="category-container" v-for="category in allCategories" :key="category">
+                <div class="form-group">
+                  <label class="checkbox">
+                    <input class="form-check-input" type="checkbox" v-model="selectedCategories" :value="category"
+                      @change="filterData" />
+                    {{ getCategoryName(category) }}
+                  </label>
+                  <div class="form-text">
+                    ({{ categoryCounts[category] }})
+                  </div>
+                </div>
+                <hr style="margin: 10px 0rem; opacity: .050;" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Right Column -->
-      <div class="col-md-10 ai-tool-list-container">
-        <div class="row">
-          <!-- Right Column Cards -->
-          <div class="col-md-4 mb-5 ai-tool-list" v-for="card in displayedCards" :key="card.tool_id">
-            <div class="card">
-              <div class="card-header" id="card-header" style="cursor: pointer;">
-                <div class="card-title-container">
-                  <div style="display: flex;">
-                    <div class="tool-pricing-icon">
-                      <i class="fa-solid fa-dollar-sign fa-xl pricing-icon" style="color: #ffffff;"></i>
+        <!-- Right Column -->
+        <div class="col-md-10 ai-tool-list-container">
+          <div class="row">
+            <!-- Right Column Cards -->
+            <div class="col-md-4 mb-5 ai-tool-list" v-for="card in displayedCards" :key="card.tool_id">
+              <div class="card">
+                <div class="card-header" id="card-header" style="cursor: pointer;">
+                  <div class="card-title-container">
+                    <div style="display: flex;">
+                      <div class="tool-pricing-icon">
+                        <i class="fa-solid fa-dollar-sign fa-xl pricing-icon" style="color: #ffffff;"></i>
+                      </div>
+                      <h5 class="card-title">{{ card.tool_name }}</h5>
+                      <tool-star-rating class="star-rating" :selected-star="`${card.star_rating}`"></tool-star-rating>
+                      <p hidden>{{ card.tool_description }}</p>
                     </div>
-                    <h5 class="card-title">{{ card.tool_name }}</h5>
-                    <tool-star-rating class="star-rating" :selected-star="`${card.star_rating}`"></tool-star-rating>
-                    <p hidden>{{ card.tool_description }}</p>
+                    <div>
+                      <tool-rank-count-display class="like-count"
+                        :overall-rating="`${card.sum_likes_rating}`"></tool-rank-count-display>
+                    </div>
                   </div>
-                  <div>
-                    <tool-rank-count-display class="like-count"
-                      :overall-rating="`${card.sum_likes_rating}`"></tool-rank-count-display>
-                  </div>
-                </div>
-                <span class="badge badge-pill badge-light" v-for="useCase in card.use_case_id"
-                  :key="useCase.ai_use_case_id" @click.prevent="toggleCategorySelection(useCase)"
-                  :class="{ 'selected': isSelectedCategory(useCase) }">
-                  {{ getCategoryName(useCase) }}
-                </span>
+                  <span class="badge badge-pill badge-light" v-for="useCase in card.use_case_id"
+                    :key="useCase.ai_use_case_id" @click.prevent="toggleCategorySelection(useCase)"
+                    :class="{ 'selected': isSelectedCategory(useCase) }">
+                    {{ getCategoryName(useCase) }}
+                  </span>
 
-                <!-- <span
-                  v-for="category in card.categories"
-                  :key="category.id"
-                  @click="toggleCategorySelection(category.id)"
-                ></span> -->
+                  <!-- <span
+                    v-for="category in card.categories"
+                    :key="category.id"
+                    @click="toggleCategorySelection(category.id)"
+                  ></span> -->
+                </div>
+                  <div class="card-body" id="card-body" @click.prevent="handleCardClick(card.tool_id)" 
+                    style="cursor: pointer;">
+                    <div class="card-image-wrapper">
+                      <img class="img-fluid tool-image" :src="getImageUrl(card.screenshot_file_path)" :alt="card.tool_name" />
+                    </div>
+                    <card-on-hover :description="card.tool_description"></card-on-hover>
+                  </div>
               </div>
-                <div class="card-body" id="card-body" @click.prevent="handleCardClick(card.tool_id)" 
-                  style="cursor: pointer;">
-                  <div class="card-image-wrapper">
-                    <img class="img-fluid tool-image" :src="getImageUrl(card.screenshot_file_path)" :alt="card.tool_name" />
-                  </div>
-                  <card-on-hover :description="card.tool_description"></card-on-hover>
-                </div>
             </div>
-          </div>
 
-          <div v-if="filteredCards.length !== 0 && searchKeyword !== ''">
-            <related-tools-on-search :filteredCards="filteredCards" :cards="cards" :categories="categories"
-              v-if="searchKeyword">
-            </related-tools-on-search>
-          </div>
-            
+            <div v-if="filteredCards.length !== 0 && searchKeyword !== ''">
+              <related-tools-on-search :filteredCards="filteredCards" :cards="cards" :categories="categories"
+                v-if="searchKeyword">
+              </related-tools-on-search>
+            </div>
+              
 
-          <div v-if="filteredCards.length === 0 && searchKeyword">
-            <div class="container">
-              <div class="row">
-                <div class="col">
-                  <h4>No Results Found</h4>
-                  <p>Sorry, but we couldn't find any results matching your search criteria.</p>
+            <div v-if="filteredCards.length === 0 && searchKeyword">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <h4>No Results Found</h4>
+                    <p>Sorry, but we couldn't find any results matching your search criteria.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Pagination -->
-          <div class="pagination">
-            <button class="btn btn-light" @click="previousPage" :disabled="currentPage === 1"
-              style="border-radius: 5px 0px 0px 5px;">
-              <i class="fa-solid fa-arrow-left-long"></i>&nbsp;Previous
-            </button>
-            <button class="btn btn-light page-numbers" v-for="page in totalPages" :key="page" @click="goToPage(page)"
-              :class="{ active: currentPage === page }" style="border-radius: 0px;">
-              {{ page }}
-            </button>
-            <button class="btn btn-light" @click="nextPage" :disabled="currentPage === totalPages"
-              style="border-radius: 0px 5px 5px 0px;">
-              Next&nbsp;<i class="fa-solid fa-arrow-right-long"></i>
-            </button>
+            <!-- Pagination -->
+            <div class="pagination">
+              <button class="btn btn-light" @click="previousPage" :disabled="currentPage === 1"
+                style="border-radius: 5px 0px 0px 5px;">
+                <i class="fa-solid fa-arrow-left-long"></i>&nbsp;Previous
+              </button>
+              <button class="btn btn-light page-numbers" v-for="page in totalPages" :key="page" @click="goToPage(page)"
+                :class="{ active: currentPage === page }" style="border-radius: 0px;">
+                {{ page }}
+              </button>
+              <button class="btn btn-light" @click="nextPage" :disabled="currentPage === totalPages"
+                style="border-radius: 0px 5px 5px 0px;">
+                Next&nbsp;<i class="fa-solid fa-arrow-right-long"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -429,6 +431,20 @@ export default {
 </script>
 <!-- eslint-disable prettier/prettier -->
 <style scoped>
+.body {
+  animation: myAnim 1s ease 0s 1 normal forwards;
+}
+
+@keyframes myAnim {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
 #header-section {
   background: rgb(200, 210, 209);
   background: linear-gradient(180deg, rgba(200, 210, 209, 1) 0%, rgba(200, 210, 209, 1) 20%, rgba(200, 210, 209, 0) 100%);
