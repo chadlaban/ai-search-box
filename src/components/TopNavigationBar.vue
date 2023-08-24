@@ -12,9 +12,9 @@
           <li class="nav-item nav-item-hover" :class="{ 'active': $route.path === '/about' }">
             <router-link class="nav-link" to="/about">About Us</router-link>
           </li>
-          <li class="nav-item nav-item-hover" :class="{ 'active': $route.path === '/featured' }">
+          <!-- <li class="nav-item nav-item-hover" :class="{ 'active': $route.path === '/featured' }">
             <router-link class="nav-link" to="/featured">Featured</router-link>
-          </li>
+          </li> -->
           <!-- <li class="nav-item" :class="{ 'active': $route.path === '/my-favorites' }">
             <router-link class="nav-link" to="/my-favorites">My Favorites</router-link>
           </li> -->
@@ -81,6 +81,7 @@ export default {
   border-radius: 25px;
   font-weight: 500;
   background-color: #FFFFFF;
+  padding: 8px 16px;
 }
 
 .navbar-nav .nav-item .nav-link {
