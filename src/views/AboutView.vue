@@ -3,7 +3,9 @@
     <div class="upper-section"></div>
     <div class="about-container">
       <div class="container about-us">
-        <h1>About Us</h1>
+        <div class="title">
+          <h1>About Us</h1>
+        </div>
         <article>
           Welcome to AI SearchBox, where we're dedicated to bringing
           cutting-edge AI tools to your fingertips. Our mission is to empower
@@ -13,7 +15,9 @@
         </article>
       </div>
       <div class="container our-vision mt-5">
-        <h1>Our Vision</h1>
+        <div class="title">
+          <h1>Our Vision</h1>
+        </div>
         <article>
           At AI SearchBox, we envision a world where AI isn't just a buzzword,
           but a transformative force that enhances lives and reshapes
@@ -23,7 +27,9 @@
         </article>
       </div>
       <div class="container join-us mt-5">
-        <h1>Join Us on this Journey</h1>
+        <div class="title">
+          <h1>Join Us on this Journey</h1>
+        </div>
         <article>
           Thank you for considering AI SearchBox as your AI partner. We're
           excited to embark on this journey of innovation with you. Whether
@@ -94,13 +100,17 @@
   }
 }
 
-h1 {
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: 0.15em solid orange; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: 0.15em; /* Adjust as needed */
-  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+.title {
+  width: min-content;
+
+  > h1 {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: 0.15em solid orange; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: 0.15em; /* Adjust as needed */
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
 }
 
 /* The typing effect */
