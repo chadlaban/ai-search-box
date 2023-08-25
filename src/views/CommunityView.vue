@@ -4,7 +4,7 @@
     <div class="upper-section"></div>
     <div class="community-container">
       <img id="in-progress-placeholder" src="../assets/imgs/on-the-works.png" />
-      <p>Catto is still on her mission for the community page!</p>
+      <p>Catto is still on her mission in <br />search for the community page!</p>
     </div>
   </div>
 </template>
