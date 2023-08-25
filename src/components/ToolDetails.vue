@@ -1,400 +1,402 @@
 <!-- eslint-disable prettier/prettier -->
 <!-- CardDetails.vue -->
 <template>
-    <div class="container-fluid bg-grey" id="header-section">
-        <section>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 section-contents">
-                    <h1 class="mb-3">AI ToolBox</h1>
-                    <p class="lead">Phasellus scelerisque elementum lorem, id hendrerit dolor dictum nec.</p>
-
-                    <!-- Search Bar -->
-                    <form class="search-input">
-                        <div class="input-group mb-3 header-search-bar">
-                            <input type="text" class="form-control" v-model="searchKeyword"
-                                placeholder="Search AI tool here" @keyup.enter="filterData" />
-                            <div class="input-group-append">
-                                <button class="btn" type="button" @click="filterData">
-                                    <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #C8D2D1;"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- AI Tools filter and cards -->
-    <div class="container-fluid mt-5" id="filter-and-tools-section">
-        <div class="row">
-            <!-- Left Column -->
-            <div class="col-md-2" id="checkbox-filters-container">
-                <!-- Expandable Checkbox Filters -->
-                <!-- Bootstrap card -->
-                <div class="card mb-4">
-                    <!-- Card header with toggle button -->
-                    <div class="card-header" @click="toggleCardSortBy">
-                        <h5 class="mb-0">Sort By</h5>
-                        <div>
-                            <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedSortBy, 'fa-regular fa-circle-down fa-lg': !isExpandedSortBy }"
-                                style="color: #C8D2D1;"></i>
-                        </div>
-                    </div>
-
-                    <!-- Card body (content) with Vue conditional rendering -->
-                    <div class="card-body" v-if="isExpandedSortBy">
-                        <!-- Placeholder for checkbox filters -->
-                        <div class="form-group">
-                            <label class="checkbox">
-                                <input type="checkbox" /> Newest to Oldest
-                            </label>
-                        </div>
-                        <hr style="margin: 10px 1rem; opacity: .050;" />
-                        <div class="form-group">
-                            <label class="checkbox">
-                                <input type="checkbox" /> Top Rated
-                            </label>
-                        </div>
-                        <hr style="margin: 10px 1rem; opacity: .050;" />
-                        <div class="form-group">
-                            <label class="checkbox">
-                                <input type="checkbox" /> Most Favourites
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bootstrap card -->
-                <div class="card mb-4">
-                    <!-- Card header with toggle button -->
-                    <div class="card-header" @click="toggleCardPricing">
-                        <h5 class="mb-0">Pricing</h5>
-                        <div>
-                            <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedPricing, 'fa-regular fa-circle-down fa-lg': !isExpandedPricing }"
-                                style="color: #C8D2D1;"></i>
-                        </div>
-                    </div>
-
-                    <!-- Card body (content) with Vue conditional rendering -->
-                    <div class="card-body" v-if="isExpandedPricing">
-                        <!-- Placeholder for checkbox filters -->
-                        <div class="form-group">
-                            <label class="checkbox">
-                                <input type="checkbox" /> Free
-                            </label>
-                        </div>
-                        <hr style="margin: 10px 1rem; opacity: .050;" />
-                        <div class="form-group">
-                            <label class="checkbox">
-                                <input type="checkbox" /> Trial
-                            </label>
-                        </div>
-                        <hr style="margin: 10px 1rem; opacity: .050;" />
-                        <div class="form-group">
-                            <label class="checkbox">
-                                <input type="checkbox" /> Paid
-                            </label>
-                        </div>
-                        <hr style="margin: 10px 1rem; opacity: .050;" />
-                        <div class="form-group">
-                            <label class="checkbox">
-                                <input type="checkbox" /> Premium
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bootstrap card -->
-                <div class="card mb-4">
-                    <!-- Card header with toggle button -->
-                    <div class="card-header" @click="toggleCardCategory">
-                        <h5 class="mb-0">Categories</h5>
-                        <div>
-                            <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedCategory, 'fa-regular fa-circle-down fa-lg': !isExpandedCategory }"
-                                style="color: #C8D2D1;"></i>
-                        </div>
-                    </div>
-
-                    <!-- Card body (content) with Vue conditional rendering -->
-                    <div class="card-body card-filters" v-if="isExpandedCategory">
-                        <!-- Placeholder for checkbox filters -->
-                        <div class="category-container" v-for="category in allCategories" :key="category">
-                            <div class="form-group">
-                                <label class="checkbox">
-                                    <input class="form-check-input" type="checkbox" v-model="selectedCategories"
-                                        :value="category" @change="filterData" />
-                                    {{ getCategoryName(category) }}
-                                </label>
-                                <div class="form-text">
-                                    ({{ categoryCounts[category] }})
-                                </div>
-                            </div>
-                            <hr style="margin: 10px 0rem; opacity: .050;" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column -->
-            <div class="col-md-10 ai-tool-details-container">
+    <div class="body">
+        <div class="container-fluid bg-grey" id="header-section">
+            <section>
                 <div class="row">
-                    <h2 class="mb-5">About {{ tool_name }}</h2>
-                    <!-- Right Column Cards -->
-                    <div class="card">
-                        <div class="card-header" id="card-header">
-                            <div class="row">
-                                <div class="col">
-                                    <div style="display: flex;">
-                                        <div class="tool-pricing-icon">
-                                            <i class="fa-solid fa-dollar-sign fa-xl pricing-icon"
-                                                style="color: #ffffff;"></i>
-                                        </div>
-                                        <h3 class="card-title">{{ tool_name }}</h3>
-                                        <tool-star-rating class="star-rating" :selected-star="`${star_rating}`"
-                                            style="margin-left: 1rem;"></tool-star-rating>
-                                    </div>
-                                    <span class="badge badge-pill badge-dark" v-for="columnData in getColumnDataArray()"
-                                        :key="columnData">
-                                        {{ columnData }}
-                                    </span>
-                                </div>
-                                <div class="col" style="
-                                display: flex;
-                                flex-direction: column;
-                                align-items: flex-end;
-                                justify-content: space-evenly;
-                                    ">
-                                    <tool-rank-count-display
-                                        :overall-rating="`${overall_rating}`"></tool-rank-count-display>
-                                    <div class="date">
-                                        <i class="fa-regular fa-calendar" style="color: #C8D2D1;"></i>&nbsp;<span
-                                            style="color: #C8D2D1;">{{ extractDate(tool_date) ? formattedDate :
-                                                formattedDate }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body" id="card-body">
-                            <slot>
-                                <template v-if="file_name">
-                                    <img class="tool-image" :src="getImageUrl(file_name)" :alt="file_name" />
-                                </template>
-                                <template v-else>
-                                    <!-- Render a placeholder or loading state until the file_name is available -->
-                                    <p>loading...</p>
-                                </template>
-                            </slot>
-                            <tool-details-on-hover :url="tool_url"></tool-details-on-hover>
-                        </div>
-                    </div>
-                </div>
+                    <div class="col-lg-8 offset-lg-2 section-contents">
+                        <h1 class="mb-3">AI ToolBox</h1>
+                        <p class="lead">Phasellus scelerisque elementum lorem, id hendrerit dolor dictum nec.</p>
 
-                <!-- Right Column Lower Container -->
-                <div class="container-fluid row lower-container-details mt-5">
-                    <!-- Left column -->
-                    <div class="col-md-9 left-container">
-                        <section class="tool-information">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit faucibus suscipit.
-                            <br><br>Key Features:
-                            <br>
-                            <ul>
-                                <li>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-                                    Etiam ut quam sed sapien ullamcorper viverra non vel magna.</li>
-                                <li>Nullam elementum justo augue. Fusce posuere, neque porta congue hendrerit, lacus massa
-                                    accumsan augue, id luctus velit quam non arcu. Duis sit amet purus non urna feugiat
-                                    tincidunt eget sit amet ipsum.</li>
-                                <li>Cras aliquet vulputate urna eu tristique. Nullam in interdum tellus. Curabitur
-                                    vestibulum dignissim nisl, rhoncus mollis ante tempor vitae.</li>
-                                <li>Suspendisse ac nisi pharetra, congue neque vitae, blandit lectus. Interdum et malesuada
-                                    fames ac ante ipsum primis in faucibus. Nullam cursus lacus at turpis ultricies
-                                    elementum.</li>
-                                <li>Mauris ut luctus ante. Vestibulum dignissim dui nulla, non interdum quam mattis vitae.
-                                    Nulla fermentum dapibus lorem a mattis. Fusce nec augue viverra mi condimentum mattis.
-                                    In a erat rutrum sapien pretium volutpat.</li>
-                            </ul>
-                            <br>
-                            Social Media: <span><i class="fa-brands fa-square-facebook fa-2xl"></i></span><span><i
-                                    class="fa-brands fa-square-instagram fa-2xl"></i></span><span><i
-                                    class="fa-brands fa-square-twitter fa-2xl"></i></span>
-                        </section>
-
-                        <form action="" class="container-fluid submit-review-container">
-                            <div class="form-header">
-                                <div class="title">
-                                    <label for="">
-                                        <h2>Would you recommend {{ tool_name }}?</h2>
-                                    </label>
-                                    <small id="passwordHelpInline" class="text-muted">
-                                        Share your experience with the community.
-                                    </small>
-                                </div>
-                                <div class="">
-                                    <star-rating></star-rating>
-                                    <button type="button" class="btn btn-light" id="review-button">Leave a Review</button>
+                        <!-- Search Bar -->
+                        <form class="search-input">
+                            <div class="input-group mb-3 header-search-bar">
+                                <input type="text" class="form-control" v-model="searchKeyword"
+                                    placeholder="Search AI tool here" @keyup.enter="filterData" />
+                                <div class="input-group-append">
+                                    <button class="btn" type="button" @click="filterData">
+                                        <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #C8D2D1;"></i>
+                                    </button>
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-                        <!-- <form action="" class="container-fluid submit-review-container">
-                            <div class="form-header">
-                                <div class="title">
-                                    <label for="">
-                                        <h4>Would you recommend Lorem Ipsum?</h4>
-                                    </label>
-                                    <small id="passwordHelpInline" class="text-muted">
-                                        Share your experience with the community.
-                                    </small>
-                                </div>
-                                <tool-star-rating></tool-star-rating>
+        <!-- AI Tools filter and cards -->
+        <div class="container-fluid mt-5" id="filter-and-tools-section">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-md-2" id="checkbox-filters-container">
+                    <!-- Expandable Checkbox Filters -->
+                    <!-- Bootstrap card -->
+                    <div class="card mb-4">
+                        <!-- Card header with toggle button -->
+                        <div class="card-header" @click="toggleCardSortBy">
+                            <h5 class="mb-0">Sort By</h5>
+                            <div>
+                                <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedSortBy, 'fa-regular fa-circle-down fa-lg': !isExpandedSortBy }"
+                                    style="color: #C8D2D1;"></i>
                             </div>
+                        </div>
 
+                        <!-- Card body (content) with Vue conditional rendering -->
+                        <div class="card-body" v-if="isExpandedSortBy">
+                            <!-- Placeholder for checkbox filters -->
                             <div class="form-group">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <label class="checkbox">
+                                    <input type="checkbox" /> Newest to Oldest
+                                </label>
                             </div>
-                            <div class="action-btns">
-                                <button type="button" class="btn btn-light">Cancel</button>
-                                <button type="button" class="btn btn-primary">Post</button>
+                            <hr style="margin: 10px 1rem; opacity: .050;" />
+                            <div class="form-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" /> Top Rated
+                                </label>
                             </div>
-                        </form> -->
-
-                        <div class="tool-reviews">
-                            <div class="container review-container">
-                                <div class="container header-review">
-                                    <label for="">User 1</label><span>&nbsp;<small
-                                            class="text-muted">MM/DD/YYYY</small></span>
-                                    <star-rating></star-rating>
-                                </div>
-                                <div class="review">
-                                    <small id="passwordHelpInline" class="text-muted">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit faucibus
-                                        suscipit.
-                                    </small>
-                                </div>
+                            <hr style="margin: 10px 1rem; opacity: .050;" />
+                            <div class="form-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" /> Most Favourites
+                                </label>
                             </div>
-                            <hr style="margin: auto; opacity: .1;" />
-                            <div class="container review-container">
-                                <div class="container header-review">
-                                    <label for="">User 2</label><span>&nbsp;<small
-                                            class="text-muted">MM/DD/YYYY</small></span>
-                                    <star-rating></star-rating>
-                                </div>
-                                <div class="review">
-                                    <small id="passwordHelpInline" class="text-muted">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit faucibus
-                                        suscipit.
-                                    </small>
-                                </div>
-                            </div>
-                            <hr style="margin: auto; opacity: .1;" />
-                            <div class="container review-container">
-                                <div class="container header-review">
-                                    <label for="">User 3</label><span>&nbsp;<small
-                                            class="text-muted">MM/DD/YYYY</small></span>
-                                    <star-rating></star-rating>
-                                </div>
-                                <div class="review">
-                                    <small id="passwordHelpInline" class="text-muted">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit faucibus
-                                        suscipit.
-                                    </small>
-                                </div>
-                            </div>
-                            <hr style="margin: auto; opacity: .1;" />
-                            <button type="button" class="btn btn-light btn-lg">View All Reviews</button>
                         </div>
                     </div>
 
-                    <!-- Right column -->
-                    <div class="col-md-3">
-                        <div class="container-fluid rating-container">
-                            <div class="rating-details">
-                                <h5>Overall Rating</h5>
-                                <div class="rating-number">{{ star_rating }}</div>
-                                <tool-star-rating class="star-rating" :selected-star="`${star_rating}`"></tool-star-rating>
-                                <small>Based on _ review</small>
-                            </div>
-
-                            <div class="progress-container">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100"
-                                        aria-valuemin="0" aria-valuemax="100">
-                                        {{ star_rating }} star
-                                    </div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                                        aria-valuemin="0" aria-valuemax="0"></div>
-                                    <!-- <span>5 star</span> -->
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                                        aria-valuemin="0" aria-valuemax="0"></div>
-                                    <!-- <span>5 star</span> -->
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                                        aria-valuemin="0" aria-valuemax="0"></div>
-                                    <!-- <span>5 star</span> -->
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                                        aria-valuemin="0" aria-valuemax="0"></div>
-                                    <!-- <span>5 star</span> -->
-                                </div>
+                    <!-- Bootstrap card -->
+                    <div class="card mb-4">
+                        <!-- Card header with toggle button -->
+                        <div class="card-header" @click="toggleCardPricing">
+                            <h5 class="mb-0">Pricing</h5>
+                            <div>
+                                <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedPricing, 'fa-regular fa-circle-down fa-lg': !isExpandedPricing }"
+                                    style="color: #C8D2D1;"></i>
                             </div>
                         </div>
-                        <div class="container-fluid card trending-tools-ol">
-                            <trending-tools-list :cards="toolsData"></trending-tools-list>
+
+                        <!-- Card body (content) with Vue conditional rendering -->
+                        <div class="card-body" v-if="isExpandedPricing">
+                            <!-- Placeholder for checkbox filters -->
+                            <div class="form-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" /> Free
+                                </label>
+                            </div>
+                            <hr style="margin: 10px 1rem; opacity: .050;" />
+                            <div class="form-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" /> Trial
+                                </label>
+                            </div>
+                            <hr style="margin: 10px 1rem; opacity: .050;" />
+                            <div class="form-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" /> Paid
+                                </label>
+                            </div>
+                            <hr style="margin: 10px 1rem; opacity: .050;" />
+                            <div class="form-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" /> Premium
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bootstrap card -->
+                    <div class="card mb-4">
+                        <!-- Card header with toggle button -->
+                        <div class="card-header" @click="toggleCardCategory">
+                            <h5 class="mb-0">Categories</h5>
+                            <div>
+                                <i :class="{ 'fa-regular fa-circle-up fa-lg': isExpandedCategory, 'fa-regular fa-circle-down fa-lg': !isExpandedCategory }"
+                                    style="color: #C8D2D1;"></i>
+                            </div>
+                        </div>
+
+                        <!-- Card body (content) with Vue conditional rendering -->
+                        <div class="card-body card-filters" v-if="isExpandedCategory">
+                            <!-- Placeholder for checkbox filters -->
+                            <div class="category-container" v-for="category in allCategories" :key="category">
+                                <div class="form-group">
+                                    <label class="checkbox">
+                                        <input class="form-check-input" type="checkbox" v-model="selectedCategories"
+                                            :value="category" @change="filterData" />
+                                        {{ getCategoryName(category) }}
+                                    </label>
+                                    <div class="form-text">
+                                        ({{ categoryCounts[category] }})
+                                    </div>
+                                </div>
+                                <hr style="margin: 10px 0rem; opacity: .050;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-md-10 ai-tool-details-container">
+                    <div class="row">
+                        <h2 class="mb-5">About {{ tool_name }}</h2>
+                        <!-- Right Column Cards -->
+                        <div class="card">
+                            <div class="card-header" id="card-header">
+                                <div class="row">
+                                    <div class="col">
+                                        <div style="display: flex;">
+                                            <div class="tool-pricing-icon">
+                                                <i class="fa-solid fa-dollar-sign fa-xl pricing-icon"
+                                                    style="color: #ffffff;"></i>
+                                            </div>
+                                            <h3 class="card-title">{{ tool_name }}</h3>
+                                            <tool-star-rating class="star-rating" :selected-star="`${star_rating}`"
+                                                style="margin-left: 1rem;"></tool-star-rating>
+                                        </div>
+                                        <span class="badge badge-pill badge-dark" v-for="columnData in getColumnDataArray()"
+                                            :key="columnData">
+                                            {{ columnData }}
+                                        </span>
+                                    </div>
+                                    <div class="col" style="
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: flex-end;
+                                    justify-content: space-evenly;
+                                        ">
+                                        <tool-rank-count-display
+                                            :overall-rating="`${overall_rating}`"></tool-rank-count-display>
+                                        <div class="date">
+                                            <i class="fa-regular fa-calendar" style="color: #C8D2D1;"></i>&nbsp;<span
+                                                style="color: #C8D2D1;">{{ extractDate(tool_date) ? formattedDate :
+                                                    formattedDate }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body" id="card-body">
+                                <slot>
+                                    <template v-if="file_name">
+                                        <img class="tool-image" :src="getImageUrl(file_name)" :alt="file_name" />
+                                    </template>
+                                    <template v-else>
+                                        <!-- Render a placeholder or loading state until the file_name is available -->
+                                        <p>loading...</p>
+                                    </template>
+                                </slot>
+                                <tool-details-on-hover :url="tool_url"></tool-details-on-hover>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column Lower Container -->
+                    <div class="container-fluid row lower-container-details mt-5">
+                        <!-- Left column -->
+                        <div class="col-md-9 left-container">
+                            <section class="tool-information">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit faucibus suscipit.
+                                <br><br>Key Features:
+                                <br>
+                                <ul>
+                                    <li>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+                                        Etiam ut quam sed sapien ullamcorper viverra non vel magna.</li>
+                                    <li>Nullam elementum justo augue. Fusce posuere, neque porta congue hendrerit, lacus massa
+                                        accumsan augue, id luctus velit quam non arcu. Duis sit amet purus non urna feugiat
+                                        tincidunt eget sit amet ipsum.</li>
+                                    <li>Cras aliquet vulputate urna eu tristique. Nullam in interdum tellus. Curabitur
+                                        vestibulum dignissim nisl, rhoncus mollis ante tempor vitae.</li>
+                                    <li>Suspendisse ac nisi pharetra, congue neque vitae, blandit lectus. Interdum et malesuada
+                                        fames ac ante ipsum primis in faucibus. Nullam cursus lacus at turpis ultricies
+                                        elementum.</li>
+                                    <li>Mauris ut luctus ante. Vestibulum dignissim dui nulla, non interdum quam mattis vitae.
+                                        Nulla fermentum dapibus lorem a mattis. Fusce nec augue viverra mi condimentum mattis.
+                                        In a erat rutrum sapien pretium volutpat.</li>
+                                </ul>
+                                <br>
+                                Social Media: <span><i class="fa-brands fa-square-facebook fa-2xl"></i></span><span><i
+                                        class="fa-brands fa-square-instagram fa-2xl"></i></span><span><i
+                                        class="fa-brands fa-square-twitter fa-2xl"></i></span>
+                            </section>
+
+                            <form action="" class="container-fluid submit-review-container">
+                                <div class="form-header">
+                                    <div class="title">
+                                        <label for="">
+                                            <h2>Would you recommend {{ tool_name }}?</h2>
+                                        </label>
+                                        <small id="passwordHelpInline" class="text-muted">
+                                            Share your experience with the community.
+                                        </small>
+                                    </div>
+                                    <div class="">
+                                        <star-rating></star-rating>
+                                        <button type="button" class="btn btn-light" id="review-button">Leave a Review</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- <form action="" class="container-fluid submit-review-container">
+                                <div class="form-header">
+                                    <div class="title">
+                                        <label for="">
+                                            <h4>Would you recommend Lorem Ipsum?</h4>
+                                        </label>
+                                        <small id="passwordHelpInline" class="text-muted">
+                                            Share your experience with the community.
+                                        </small>
+                                    </div>
+                                    <tool-star-rating></tool-star-rating>
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                                <div class="action-btns">
+                                    <button type="button" class="btn btn-light">Cancel</button>
+                                    <button type="button" class="btn btn-primary">Post</button>
+                                </div>
+                            </form> -->
+
+                            <div class="tool-reviews">
+                                <div class="container review-container">
+                                    <div class="container header-review">
+                                        <label for="">User 1</label><span>&nbsp;<small
+                                                class="text-muted">MM/DD/YYYY</small></span>
+                                        <star-rating></star-rating>
+                                    </div>
+                                    <div class="review">
+                                        <small id="passwordHelpInline" class="text-muted">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit faucibus
+                                            suscipit.
+                                        </small>
+                                    </div>
+                                </div>
+                                <hr style="margin: auto; opacity: .1;" />
+                                <div class="container review-container">
+                                    <div class="container header-review">
+                                        <label for="">User 2</label><span>&nbsp;<small
+                                                class="text-muted">MM/DD/YYYY</small></span>
+                                        <star-rating></star-rating>
+                                    </div>
+                                    <div class="review">
+                                        <small id="passwordHelpInline" class="text-muted">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit faucibus
+                                            suscipit.
+                                        </small>
+                                    </div>
+                                </div>
+                                <hr style="margin: auto; opacity: .1;" />
+                                <div class="container review-container">
+                                    <div class="container header-review">
+                                        <label for="">User 3</label><span>&nbsp;<small
+                                                class="text-muted">MM/DD/YYYY</small></span>
+                                        <star-rating></star-rating>
+                                    </div>
+                                    <div class="review">
+                                        <small id="passwordHelpInline" class="text-muted">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit faucibus
+                                            suscipit.
+                                        </small>
+                                    </div>
+                                </div>
+                                <hr style="margin: auto; opacity: .1;" />
+                                <button type="button" class="btn btn-light btn-lg">View All Reviews</button>
+                            </div>
+                        </div>
+
+                        <!-- Right column -->
+                        <div class="col-md-3">
+                            <div class="container-fluid rating-container">
+                                <div class="rating-details">
+                                    <h5>Overall Rating</h5>
+                                    <div class="rating-number">{{ star_rating }}</div>
+                                    <tool-star-rating class="star-rating" :selected-star="`${star_rating}`"></tool-star-rating>
+                                    <small>Based on _ review</small>
+                                </div>
+
+                                <div class="progress-container">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100"
+                                            aria-valuemin="0" aria-valuemax="100">
+                                            {{ star_rating }} star
+                                        </div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                            aria-valuemin="0" aria-valuemax="0"></div>
+                                        <!-- <span>5 star</span> -->
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                            aria-valuemin="0" aria-valuemax="0"></div>
+                                        <!-- <span>5 star</span> -->
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                            aria-valuemin="0" aria-valuemax="0"></div>
+                                        <!-- <span>5 star</span> -->
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                            aria-valuemin="0" aria-valuemax="0"></div>
+                                        <!-- <span>5 star</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid card trending-tools-ol">
+                                <trending-tools-list :cards="toolsData"></trending-tools-list>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- related tool cards -->
-        <h5 id="pop-up-title">Related Tools:</h5>
-        <div class="carousel">
-            <div class="card-carousel" ref="carousel" @mousedown="startDrag" @touchstart="startDrag" @mousemove="handleDrag"
-                @touchmove="handleDrag" @mouseup="endDrag" @touchend="endDrag">
-                <div class="card-carousel-inner" :style="{ transform: `translateX(${translateX}px)` }">
-                    <div v-for="card in relatedTools" :key="card.tool_id" class="card">
-                        <!-- Card Content -->
-                        <div class="card-header" id="card-header" @click.prevent="handleCardClick(card.tool_id)"
-                            style="cursor: pointer;">
-                            <div class="card-title-container">
-                                <div style="display: flex;">
-                                    <div class="tool-pricing-icon">
-                                        <i class="fa-solid fa-dollar-sign fa-xl pricing-icon" style="color: #ffffff;"></i>
+            <!-- related tool cards -->
+            <h5 id="pop-up-title">Related Tools:</h5>
+            <div class="carousel">
+                <div class="card-carousel" ref="carousel" @mousedown="startDrag" @touchstart="startDrag" @mousemove="handleDrag"
+                    @touchmove="handleDrag" @mouseup="endDrag" @touchend="endDrag">
+                    <div class="card-carousel-inner" :style="{ transform: `translateX(${translateX}px)` }">
+                        <div v-for="card in relatedTools" :key="card.tool_id" class="card">
+                            <!-- Card Content -->
+                            <div class="card-header" id="card-header" @click.prevent="handleCardClick(card.tool_id)"
+                                style="cursor: pointer;">
+                                <div class="card-title-container">
+                                    <div style="display: flex;">
+                                        <div class="tool-pricing-icon">
+                                            <i class="fa-solid fa-dollar-sign fa-xl pricing-icon" style="color: #ffffff;"></i>
+                                        </div>
+                                        <h5 class="card-title">{{ card.tool_name }}</h5>
+                                        <tool-star-rating class="star-rating"
+                                            :selected-star="`${card.star_rating}`"></tool-star-rating>
+                                        <p hidden>{{ card.tool_description }}</p>
                                     </div>
-                                    <h5 class="card-title">{{ card.tool_name }}</h5>
-                                    <tool-star-rating class="star-rating"
-                                        :selected-star="`${card.star_rating}`"></tool-star-rating>
-                                    <p hidden>{{ card.tool_description }}</p>
+                                    <div>
+                                        <tool-rank-count-display class="like-count"
+                                            :overall-rating="`${card.sum_likes_rating}`"></tool-rank-count-display>
+                                    </div>
                                 </div>
-                                <div>
-                                    <tool-rank-count-display class="like-count"
-                                        :overall-rating="`${card.sum_likes_rating}`"></tool-rank-count-display>
+                                <span class="badge badge-pill badge-light" v-for="useCase in card.use_case_id"
+                                    :key="useCase.ai_use_case_id">
+                                    {{ getCategoryName(useCase) }}
+                                </span>
+                            </div>
+                            <div class="card-body" id="card-body" @click.prevent="handleCardClick(card.tool_id)"
+                                style="cursor: pointer;">
+                                <div class="card-image-wrapper">
+                                    <img class="img-fluid tool-image" :src="getImageUrl(card.screenshot_file_path)"
+                                        :alt="card.tool_name" />
                                 </div>
+                                <card-on-hover :description="card.tool_description"></card-on-hover>
                             </div>
-                            <span class="badge badge-pill badge-light" v-for="useCase in card.use_case_id"
-                                :key="useCase.ai_use_case_id">
-                                {{ getCategoryName(useCase) }}
-                            </span>
-                        </div>
-                        <div class="card-body" id="card-body" @click.prevent="handleCardClick(card.tool_id)"
-                            style="cursor: pointer;">
-                            <div class="card-image-wrapper">
-                                <img class="img-fluid tool-image" :src="getImageUrl(card.screenshot_file_path)"
-                                    :alt="card.tool_name" />
-                            </div>
-                            <card-on-hover :description="card.tool_description"></card-on-hover>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- End of related tools -->
         </div>
-        <!-- End of related tools -->
     </div>
 </template>
 <!-- eslint-disable prettier/prettier -->
@@ -555,6 +557,22 @@ export default {
 </script>
 <!-- eslint-disable prettier/prettier -->
 <style scoped>
+.body {
+    animation: myAnim 1s ease 0s 1 normal forwards;
+}
+
+@keyframes myAnim {
+	0% {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
 #header-section {
     background: rgb(200, 210, 209);
     background: linear-gradient(180deg, rgba(200, 210, 209, 1) 0%, rgba(200, 210, 209, 1) 20%, rgba(200, 210, 209, 0) 100%);

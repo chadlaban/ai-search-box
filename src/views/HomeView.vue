@@ -526,6 +526,16 @@ export default {
   }
 }
 
+@keyframes animation {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
 #featured-trending-section {
   padding: 0rem 2rem 5.5rem 2rem;
   height: 100%;
