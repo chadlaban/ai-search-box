@@ -13,6 +13,9 @@
 import axios from 'axios';
 
 export default {
+    props: {
+        tool_id: Number,
+    },
     data() {
         return {
             cards: [],
