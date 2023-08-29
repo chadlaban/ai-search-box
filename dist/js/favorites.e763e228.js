@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkai_directory"]=self["webpackChunkai_directory"]||[]).push([[205],{6174:function(r,e,t){t.r(e),t.d(e,{default:function(){return d}});var i=t(3396);const n={class:"my-favorites"},s=(0,i._)("h1",null,"This is the my favorites page",-1),a=[s];function c(r,e){return(0,i.wg)(),(0,i.iD)("div",n,a)}var u=t(89);const o={},f=(0,u.Z)(o,[["render",c]]);var d=f}}]);
-//# sourceMappingURL=favorites.e763e228.js.map
