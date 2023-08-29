@@ -9,7 +9,10 @@
 <!-- eslint-disable prettier/prettier -->
 <script>
 export default {
-    props: ['overallRating'],
+    props: {
+      overallRating: String,
+      tool_id: Number,
+    }
 };
 </script>
 <!-- eslint-disable prettier/prettier -->

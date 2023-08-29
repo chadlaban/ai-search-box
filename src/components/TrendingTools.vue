@@ -5,7 +5,7 @@
       @touchmove="handleDrag" @mouseup="endDrag" @touchend="endDrag">
       <div class="card-carousel-inner" :style="{ transform: `translateX(${translateX}px)` }">
         <div class="card-row">
-          <div class="card" v-for="card in visibleCards1" :key="card.tool_id">
+          <div class="card" v-for="card in visibleCardsUpperDisplay" :key="card.tool_id">
             <div class="card-header" id="card-header" @click.prevent="handleCardClick(card.tool_id)"
               style="cursor: pointer;">
               <div class="card-title-container">
@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="card-row mt-4">
-          <div v-for="card in visibleCards2" :key="card.tool_id" class="card">
+          <div v-for="card in visibleCardsLowerDisplay" :key="card.tool_id" class="card">
             <div class="card-header" id="card-header" @click.prevent="handleCardClick(card.tool_id)"
               style="cursor: pointer;">
               <div class="card-title-container">
@@ -118,11 +118,11 @@ export default {
   },
   computed: {
     // Compute the visible cards for the upper set based on the specified number of cards
-    visibleCards1() {
+    visibleCardsUpperDisplay() {
       return this.trendingTools.slice(0, this.numCards1);
     },
     // Compute the visible cards for the lower set based on the specified number of cards
-    visibleCards2() {
+    visibleCardsLowerDisplay() {
       return this.trendingTools.slice(this.numCards1, this.numCards1 + this.numCards2);
     },
   },

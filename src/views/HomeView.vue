@@ -257,6 +257,9 @@ import CardOnHover from "@/components/CardOnHover.vue";
 import RelatedToolsOnSearch from "@/components/RelatedToolsOnSearch.vue";
 
 export default {
+  props: {
+    tool_id: Number,
+  },
   components: {
     ToolStarRating,
     ToolRankCountDisplay,

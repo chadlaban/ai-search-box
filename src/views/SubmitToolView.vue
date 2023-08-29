@@ -86,7 +86,6 @@ export default {
         .get("http://localhost:3000/ai_use_case") // Replace with your server URL
         .then((response) => {
           this.categories = response.data;
-          console.log(this.categories);
         })
         .catch((error) => {
           console.error("Error fetching use case", error);

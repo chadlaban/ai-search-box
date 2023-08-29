@@ -36,6 +36,7 @@ import CardOnHoverFeaturedTool from './CardOnHoverFeaturedTool.vue';
 
 export default {
     props: {
+        tool_id: Number,
         cards: {
             type: Array,
             required: true,
