@@ -5,7 +5,7 @@
       <div class="row">
         <!-- Left Column -->
         <div class="col-md-6">
-          <h4 style="color: #000000;">AI Toolbox</h4>
+          <h4 style="color: #000000;">AI SearchBox</h4>
           <p>Get ready to unlock new possibilities with
             <br />the largest AI tools directory.
           </p>
@@ -33,7 +33,7 @@
 
     <!-- Copyright -->
     <div class="container text-center">
-      <p>&copy; {{ currentYear }} AI ToolBox. All rights reserved.</p>
+      <p>&copy; {{ currentYear }} AI SearchBox. All rights reserved.</p>
     </div>
   </footer>
 </template>
